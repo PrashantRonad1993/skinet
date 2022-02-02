@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Reflection;
 using Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace Infrastructure.Data
 {
@@ -13,6 +15,13 @@ namespace Infrastructure.Data
         {
         }
 
-        public DbSet<Product> products {get;set;}
+        public DbSet<Product> Products {get;set;}
+        public DbSet<ProductBrand> ProductBrands {get;set;}
+        public DbSet<ProductType> ProductTypes {get;set;}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {                       
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }        
     }
 }
